@@ -133,3 +133,7 @@ dmypy.json
 # misc
 *wandb*
 *.hydra*
+
+continual_world
+salina
+run
