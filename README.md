@@ -8,15 +8,18 @@ Code for NeurIPS 2023 paper [Rewiring Neurons in Non-Stationary Environments](ht
 * Install [SaLinA](https://github.com/facebookresearch/salina#quick-start) and [Continual World](https://github.com/awarelab/continual_world#installation) following their instructions. Note that the latter only supports [MuJoCo version 2.0](https://roboti.us/download.html).
 ```
 conda install pytorch==2.3.1 torchvision==0.18.1 pytorch-cuda=12.1 -c pytorch -c nvidia
-git clone https://github.com/facebookresearch/salina.git
-cd salina 
-pip install -e .
-cd ..
 git clone https://github.com/awarelab/continual_world.git
 cd continual_world
 pip install -e .
 cd ..
+git clone https://github.com/facebookresearch/salina.git
+cd salina 
+pip install -e .
+cd ..
 pip install "jax[cuda12]"
+pip install cython==0.29.36
+pip install gym==0.24.1  # if 5: 0.26.2
+
 ```
 
 * Install additional packages via `pip install -r requirements.txt`.

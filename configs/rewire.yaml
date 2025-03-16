@@ -28,11 +28,12 @@ framework:
 
     policy_agent:
       classname: agents.RewireActionAgent
-#      tau: 1.
-#      beta: 0.1
+      tau: 1.
+      beta: 0.1
       k: 3
       tau2: 0.1
       beta2: 0.
       rewire_last: 'expand'
-#      divergence: 1e-5
-#      coeff: 0.
+      divergence: 1e-5
+      coeff: 0.
+      cycle: -1
