@@ -9,6 +9,7 @@ from typing import *
 
 import wandb
 from omegaconf import DictConfig
+from torch.utils.tensorboard import SummaryWriter
 
 
 class WandbLogger:
@@ -23,7 +24,15 @@ class WandbLogger:
         verbose: bool =False,
         log_loss: bool = False,
         **kwargs) -> None:
-        wandb.init(project='salina_cl', group = project, job_type = job_type, monitor_gym=True)
+        wandb.init(project='salina_cl', 
+                   group = project, 
+                   job_type = job_type, 
+                   monitor_gym=True,
+                   sync_tensorboard=True,
+                   save_code=True,)
+        writer = SummaryWriter(wandb.run.dir)
+        writer.add_scalar("charts/record", 1)
+        print("Wandb run dir: ", wandb.run.dir)
         self.logs = {}
         self.every_n_seconds = every_n_seconds
         self.save_time = - float("inf")

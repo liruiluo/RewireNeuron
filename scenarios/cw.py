@@ -11,6 +11,7 @@ from continualworld.envs import MT50, get_subtasks
 from gymnasium.wrappers import TimeLimit
 from continualworld.utils.wrappers import RandomizationWrapper
 from core import Scenario, Task
+import wandb
 
 META_WORLD_TIME_HORIZON = 200
 
@@ -32,13 +33,16 @@ class MetaWorldWrapper(gym.Wrapper):
 def make_cw_env(name,seed = 0, render = False):
     print("Building environment ", name)
     random.seed(seed)
-    env = MT50.train_classes[name]()
+    if render:
+        env = MT50.train_classes[name](render_mode="rgb_array")
+    else:
+        env = MT50.train_classes[name]()
     if render:
         env.render_mode = "rgb_array"
         print('render')
     env = RandomizationWrapper(env, get_subtasks(name), kind = "random_init_all")
     if render:
-        env = gym.wrappers.RecordVideo(env, f"videos/{name}", step_trigger=lambda x: x % 200000 == 0)
+        env = gym.wrappers.RecordVideo(env, f"{wandb.run.dir}/videos/{name}", step_trigger=lambda x: x % 200000 == 0)
     env = MetaWorldWrapper(env)
     env = TimeLimit(env,max_episode_steps = META_WORLD_TIME_HORIZON)
     return env
