@@ -37,6 +37,7 @@ pip install mujoco-py=2.1
 pip install gym==0.26.2
 pip install moviepy
 pip install gymnasium
+export MUJOCO_GL=egl
 ```
 
 * Install additional packages via `pip install -r requirements.txt`.
