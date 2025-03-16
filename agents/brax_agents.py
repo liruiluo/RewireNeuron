@@ -5,7 +5,7 @@
 # LICENSE file in the root directory of this source tree.
 #
 import torch
-from .jax_to_torch import JaxToTorchWrapper
+# from .jax_to_torch import JaxToTorchWrapper
 from salina import TAgent
 from salina.agents import Agents, EpisodesDone
 

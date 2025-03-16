@@ -6,7 +6,7 @@ Code for NeurIPS 2023 paper [Rewiring Neurons in Non-Stationary Environments](ht
 ## Requirements
 * Make sure you have [PyTorch](https://pytorch.org/get-started) and [JAX](https://github.com/google/jax#pip-installation-gpu-cuda) installed with CUDA support.
 * Install [SaLinA](https://github.com/facebookresearch/salina#quick-start) and [Continual World](https://github.com/awarelab/continual_world#installation) following their instructions. Note that the latter only supports [MuJoCo version 2.0](https://roboti.us/download.html).
-bash```
+```
 conda install pytorch==2.3.1 torchvision==0.18.1 pytorch-cuda=12.1 -c pytorch -c nvidia
 git clone https://github.com/facebookresearch/salina.git
 cd slina 
@@ -18,11 +18,12 @@ pip install -e .
 cd ..
 pip install "jax[cuda12]"
 ```
+
 * Install additional packages via `pip install -r requirements.txt`.
 
 ## Getting started
 Simply run the file `run.py` with the desired config available in [configs](configs/):
-```shell
+```
 python run.py -cn=METHOD scenario=SCENARIO OPTIONAL_CONFIGS
 python run.py -cn=rewire scenario=continual_world/cw10 OPTIONAL_CONFIGS
 ```

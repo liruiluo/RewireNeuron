@@ -18,7 +18,7 @@ from typing import Any, Dict, Union
 import warnings
 
 from jax._src import dlpack as jax_dlpack
-from jax.interpreters.xla import DeviceArray
+import jax.numpy as jnp
 
 try:
   # pylint:disable=g-import-not-at-top
@@ -37,7 +37,7 @@ Device = Union[str, torch.device]
 def torch_to_jax(value: Any) -> Any:
   """Converts values to JAX tensors."""
   # Don't do anything by default, and when a handler is registered for this type
-  # of value, it gets used to convert it to a Jax DeviceArray.
+  # of value, it gets used to convert it to a Jax jnp.ndarray.
   # NOTE: The alternative would be to raise an error when an unsupported value
   # is encountered:
   # raise NotImplementedError(f"Cannot convert {v} to a Jax tensor")
@@ -45,8 +45,8 @@ def torch_to_jax(value: Any) -> Any:
 
 
 @torch_to_jax.register(torch.Tensor)
-def _tensor_to_jax(value: torch.Tensor) -> DeviceArray:
-  """Converts a PyTorch Tensor into a Jax DeviceArray."""
+def _tensor_to_jax(value: torch.Tensor) -> jnp.ndarray:
+  """Converts a PyTorch Tensor into a Jax jnp.ndarray."""
   tensor = torch_dlpack.to_dlpack(value)
   tensor = jax_dlpack.from_dlpack(tensor)
   return tensor
@@ -55,8 +55,8 @@ def _tensor_to_jax(value: torch.Tensor) -> DeviceArray:
 @torch_to_jax.register(abc.Mapping)
 def _torch_dict_to_jax(
     value: Dict[str, Union[torch.Tensor, Any]]
-) -> Dict[str, Union[DeviceArray, Any]]:
-  """Converts a dict of PyTorch tensors into a dict of Jax DeviceArrays."""
+) -> Dict[str, Union[jnp.ndarray, Any]]:
+  """Converts a dict of PyTorch tensors into a dict of Jax jnp.ndarrays."""
   return type(value)(**{k: torch_to_jax(v) for k, v in value.items()})  # type: ignore
 
 
@@ -74,10 +74,10 @@ def jax_to_torch(value: Any, device: Device = None) -> Any:
   return value
 
 
-@jax_to_torch.register(DeviceArray)
-def _devicearray_to_tensor(value: DeviceArray,
+@jax_to_torch.register(jnp.ndarray)
+def _jnp_ndarray_to_tensor(value: jnp.ndarray,
                            device: Device = None) -> torch.Tensor:
-  """Converts a Jax DeviceArray into PyTorch Tensor."""
+  """Converts a Jax jnp.ndarray into PyTorch Tensor."""
   dpack = jax_dlpack.to_dlpack(value.astype("float32"))
   tensor = torch_dlpack.from_dlpack(dpack)
   if device:
@@ -87,9 +87,9 @@ def _devicearray_to_tensor(value: DeviceArray,
 
 @jax_to_torch.register(abc.Mapping)
 def _jax_dict_to_torch(
-    value: Dict[str, Union[DeviceArray, Any]],
+    value: Dict[str, Union[jnp.ndarray, Any]],
     device: Device = None) -> Dict[str, Union[torch.Tensor, Any]]:
-  """Converts a dict of Jax DeviceArrays into a dict of PyTorch tensors."""
+  """Converts a dict of Jax jnp.ndarrays into a dict of PyTorch tensors."""
   return type(value)(
       **{k: jax_to_torch(v, device=device) for k, v in value.items()})  # type: ignore
   
