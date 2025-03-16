@@ -12,7 +12,7 @@ import torch.utils.data
 from salina import Agent, Workspace, instantiate_class
 from salina.agents import Agents, TemporalAgent
 from salina.agents.brax import EpisodesDone
-
+import gymnasium as gym
 
 class Task:
     """A Reinforcement Learning task defined as a SaLinA agent. Use make() method

@@ -4,10 +4,11 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 #
-import gym
+# import gym
+import gymnasium as gym
 import random
 from continualworld.envs import MT50, get_subtasks
-from gym.wrappers import TimeLimit
+from gymnasium.wrappers import TimeLimit
 from continualworld.utils.wrappers import RandomizationWrapper
 from core import Scenario, Task
 
@@ -19,20 +20,25 @@ class MetaWorldWrapper(gym.Wrapper):
         super().__init__(e)
         # self.env=e
 
-    def reset(self):
-        return {"env_obs":self.env.reset(),"success":0.0}
+    def reset(self,seed=None,options=None):
+        return {"env_obs":self.env.reset(seed=seed),"success":0.0}
 
     def step(self,a):
-        o,r,d,i=self.env.step(a)
-        o={"env_obs":o,"success":i["success"],"goalDist":i["goalDist"]}
-        return o,r,d,i
+        observation, reward, terminated, truncated, info=self.env.step(a)
+        observation={"env_obs":observation,"success":info["success"]} # ,"goalDist":info["goalDist"]
+        return observation, reward, terminated, truncated, info
 
 
-def make_cw_env(name,seed = 0):
+def make_cw_env(name,seed = 0, render = False):
     print("Building environment ", name)
     random.seed(seed)
     env = MT50.train_classes[name]()
+    if render:
+        env.render_mode = "rgb_array"
+        print('render')
     env = RandomizationWrapper(env, get_subtasks(name), kind = "random_init_all")
+    if render:
+        env = gym.wrappers.RecordVideo(env, f"videos/{name}", step_trigger=lambda x: x % 200000 == 0)
     env = MetaWorldWrapper(env)
     env = TimeLimit(env,max_episode_steps = META_WORLD_TIME_HORIZON)
     return env
@@ -49,7 +55,7 @@ class CWScenario(Scenario):
             agent_cfg={
                 "classname":"salina.agents.gyma.AutoResetGymAgent",
                 "make_env_fn":make_cw_env,
-                "make_env_args":{"name":task},
+                "make_env_args":{"name":task,"render":True},
                 "n_envs":n_train_envs
             }
             self._train_tasks.append(Task(agent_cfg,k,n_steps))

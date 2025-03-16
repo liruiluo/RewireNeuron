@@ -23,12 +23,13 @@ class WandbLogger:
         verbose: bool =False,
         log_loss: bool = False,
         **kwargs) -> None:
-        wandb.init(project='salina_cl', group = project, job_type = job_type)
+        wandb.init(project='salina_cl', group = project, job_type = job_type, monitor_gym=True)
         self.logs = {}
         self.every_n_seconds = every_n_seconds
         self.save_time = - float("inf")
         self.verbose = verbose
         self.log_loss = log_loss
+        self.run_dir = wandb.run.dir
 
     def _to_dict(self, h: Union[dict,DictConfig]) -> dict:
         if isinstance(h, dict) or isinstance(h, DictConfig):

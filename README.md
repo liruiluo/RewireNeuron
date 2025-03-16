@@ -19,18 +19,20 @@ sudo apt-get update
 sudo apt-get install -y build-essential gcc
 # envs
 conda install pytorch==2.3.1 torchvision==0.18.1 pytorch-cuda=12.1 -c pytorch -c nvidia
-git clone https://github.com/awarelab/continual_world.git
+#git clone https://github.com/awarelab/continual_world.git
 cd continual_world
 pip install -e .
 cd ..
-git clone https://github.com/facebookresearch/salina.git
+#git clone https://github.com/facebookresearch/salina.git
 cd salina 
 pip install -e .
 cd ..
 pip install "jax[cuda12]"
 pip install cython==0.29.36
-pip install gym==0.24.1  # if 5: 0.26.2
-
+pip install mujoco-py=2.1
+#pip install gym==0.24.1  # if 5: 0.26.2
+pip install gym==0.26.2
+pip install moviepy
 ```
 
 * Install additional packages via `pip install -r requirements.txt`.
@@ -95,3 +97,5 @@ The `core.py` file contains the building blocks of this framework. Each experime
 Our implementation is based on:
 * [SaLinA](https://github.com/facebookresearch/salina) with multiple CRL scenarios and methods already in place.
 * [SoftSort](https://github.com/sprillo/softsort) for parameter-efficient differentiable sorting.
+
+env = gym.wrappers.RecordVideo(env, f"videos/{run_name}", step_trigger=lambda x: x % 200000 == 0)
