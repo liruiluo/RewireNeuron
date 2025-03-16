@@ -22,6 +22,9 @@ conda install pytorch==2.3.1 torchvision==0.18.1 pytorch-cuda=12.1 -c pytorch -c
 #git clone https://github.com/awarelab/continual_world.git
 cd continual_world
 pip install -e .
+cd metaworld
+pip install -e .
+cd ..
 cd ..
 #git clone https://github.com/facebookresearch/salina.git
 cd salina 
