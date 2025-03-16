@@ -1,0 +1,12 @@
+name: csp
+seed: 0
+
+model:
+  seed: ${seed}
+
+defaults: 
+  - logger: wandb
+  - scenario: halfcheetah/forgetting
+  - hydra: hydra
+  - framework/params/csp
+  - optional framework: ${scenario}_csp

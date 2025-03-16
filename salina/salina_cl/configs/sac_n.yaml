@@ -1,0 +1,22 @@
+name: sac_n
+seed: 0
+
+defaults: 
+  - logger: wandb
+  - scenario: halfcheetah/forgetting
+  - hydra: hydra
+  - framework/params/algorithm/generic_sac
+  - framework/params/policy_agent/generic_policy
+  - framework/params/critic_agent/generic_critic
+  - framework/params/evaluation/generic_evaluation
+  - optional framework/params/algorithm: ${scenario} # best HPS for sac are loaded if available
+  - optional framework/params/policy_agent: ${scenario} # using layer norm and random policy warmup if CW
+  - optional framework/params/critic_agent: ${scenario} # using layer norm if CW
+
+framework:
+  classname: salina_cl.frameworks.OneStep
+  seed: ${seed}
+  params:
+    checkpoint: False
+    policy_agent:
+      classname: salina_cl.agents.FromScratchActionAgent

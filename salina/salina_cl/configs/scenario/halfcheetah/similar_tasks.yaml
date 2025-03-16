@@ -1,0 +1,8 @@
+name: similar_tasks
+classname: salina_cl.scenarios.BraxScenario
+domain: halfcheetah
+tasks: ["normal","hugefoot","carry_stuff","defective_module","tinyfoot_moon","hugefoot_rainfall","moon","tinyfoot","rainfall","carry_stuff_hugegravity"]
+repeat_scenario: 1
+n_train_envs: 128
+n_evaluation_envs: 512
+n_steps: 1_000_000

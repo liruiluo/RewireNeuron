@@ -1,0 +1,10 @@
+torchvision
+gym>=0.21.0
+tensorboard
+tqdm
+hydra-core
+numpy
+pandas
+opencv-python
+pygame
+xformers>=0.0.3

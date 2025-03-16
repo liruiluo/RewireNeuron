@@ -1,0 +1,5 @@
+hidden_size: 256
+input_dimension: nil
+output_dimension: nil
+start_steps: 0
+layer_norm: False
