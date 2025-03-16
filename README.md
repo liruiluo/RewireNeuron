@@ -9,7 +9,7 @@ Code for NeurIPS 2023 paper [Rewiring Neurons in Non-Stationary Environments](ht
 ```
 conda install pytorch==2.3.1 torchvision==0.18.1 pytorch-cuda=12.1 -c pytorch -c nvidia
 git clone https://github.com/facebookresearch/salina.git
-cd slina 
+cd salina 
 pip install -e .
 cd ..
 git clone https://github.com/awarelab/continual_world.git
