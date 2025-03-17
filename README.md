@@ -7,6 +7,7 @@ Code for NeurIPS 2023 paper [Rewiring Neurons in Non-Stationary Environments](ht
 * Make sure you have [PyTorch](https://pytorch.org/get-started) and [JAX](https://github.com/google/jax#pip-installation-gpu-cuda) installed with CUDA support.
 * Install [SaLinA](https://github.com/facebookresearch/salina#quick-start) and [Continual World](https://github.com/awarelab/continual_world#installation) following their instructions. Note that the latter only supports [MuJoCo version 2.0](https://roboti.us/download.html).
 ```
+cd RewireNeuron
 # mujoco
 wget https://github.com/google-deepmind/mujoco/releases/download/2.1.0/mujoco210-linux-x86_64.tar.gz
 mkdir ~/.mujoco
@@ -24,7 +25,7 @@ conda install pytorch==2.3.1 torchvision==0.18.1 pytorch-cuda=12.1 -c pytorch -c
 #git clone https://github.com/awarelab/continual_world.git
 cd continual_world
 pip install -e .
-cd metaworld
+cd Metaworld
 pip install -e .
 cd ..
 cd ..
