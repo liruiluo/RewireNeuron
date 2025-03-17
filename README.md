@@ -14,6 +14,8 @@ tar -zxvf mujoco210-linux-x86_64.tar.gz -C ~/.mujoco
 echo 'export LD_LIBRARY_PATH=~/.mujoco/mujoco210/bin:$LD_LIBRARY_PATH' >> ~/.bashrc
 echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/nvidia:/usr/lib/x86_64-linux-gnu:/usr/local/nvidia/lib64' >> ~/.bashrc
 source ~/.bashrc
+sudo apt-get update
+sudo apt-get install libegl1-mesa
 sudo apt-get install -y libglew-dev
 sudo apt-get update
 sudo apt-get install -y build-essential gcc
@@ -38,6 +40,7 @@ pip install gym==0.26.2
 pip install moviepy
 pip install gymnasium
 export MUJOCO_GL=egl
+pip install PyOpenGL PyOpenGL-accelerate
 ```
 
 * Install additional packages via `pip install -r requirements.txt`.
