@@ -1,0 +1,6 @@
+classname: logger.WandbLogger
+log_dir: .
+every_n_seconds: 10
+modulo: 1000
+verbose: True
+# log_loss: False

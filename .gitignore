@@ -131,7 +131,7 @@ venv.bak/
 dmypy.json
 
 # misc
-*wandb*
+wandb/
 *.hydra*
 
 #continual_world
