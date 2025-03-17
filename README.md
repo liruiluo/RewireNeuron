@@ -42,6 +42,7 @@ pip install moviepy
 pip install gymnasium
 export MUJOCO_GL=egl
 pip install PyOpenGL PyOpenGL-accelerate
+pip install wandb
 ```
 
 * Install additional packages via `pip install -r requirements.txt`.
