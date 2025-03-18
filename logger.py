@@ -31,8 +31,6 @@ class WandbLogger:
                    sync_tensorboard=True,
                    save_code=True,)
         writer = SummaryWriter(wandb.run.dir)
-        writer.add_scalar("charts/record", 1)
-        print("Wandb run dir: ", wandb.run.dir)
         self.logs = {}
         self.every_n_seconds = every_n_seconds
         self.save_time = - float("inf")
